@@ -2,11 +2,11 @@
 public class Enemigo extends Personaje {
 
    
-    private int puntos; // Puntos que da al ser destruido
+    private int puntos; 
 
     
     public Enemigo(int x, int y, int puntos) {
-        super(x, y, 1); // Los enemigos solo tienen 1 vida
+        super(x, y, 1); 
         this.puntos = puntos;
     }
 
