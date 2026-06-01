@@ -28,7 +28,7 @@ public class Disparo {
 
    
     public void mover() {
-        this.y += this.direccion; // Suma -1 (sube) o +1 (baja)
+        this.y += this.direccion; 
     }
 
     
