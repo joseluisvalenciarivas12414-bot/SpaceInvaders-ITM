@@ -5,20 +5,20 @@ import java.util.Scanner;
 public class Juego {
 
     
-    static final int ANCHO   = 20; // Columnas del tablero
-    static final int ALTO    = 10; // Filas del tablero
-    static final int MAX_COL = 5;  // Columnas de enemigos por fila
+    static final int ANCHO   = 20; 
+    static final int ALTO    = 10; 
+    static final int MAX_COL = 5;  
 
     
-    private Nave               nave;              // La nave del jugador
-    private ArrayList<Enemigo> enemigos;          // Todos los enemigos activos
-    private ArrayList<Disparo> disparosJugador;   // Balas del jugador (suben)
-    private ArrayList<Disparo> disparosEnemigos;  // Balas enemigas (bajan)
-    private int                puntaje;           // Puntaje acumulado
-    private int                nivel;             // Nivel actual
-    private boolean            corriendo;         // false = fin de partida
-    private int                direccionEnemigos; // +1 derecha, -1 izquierda
-    private Scanner            sc;                // Lector de teclado
+    private Nave               nave;              
+    private ArrayList<Enemigo> enemigos;         
+    private ArrayList<Disparo> disparosJugador;   
+    private ArrayList<Disparo> disparosEnemigos;  
+    private int                puntaje;           
+    private int                nivel;            
+    private boolean            corriendo;         
+    private int                direccionEnemigos; 
+    private Scanner            sc;              
 
     
     
@@ -49,9 +49,9 @@ public class Juego {
 
         for (int fila = 0; fila < filas; fila++) {
             for (int col = 0; col < cols; col++) {
-                int px     = 1 + col * 3;         // Espaciado entre enemigos
-                int py     = 1 + fila * 2;         // Filas 1 y 3
-                int puntos = (filas - fila) * 10;  // Fila 0 = 20pts, fila 1 = 10pts
+                int px     = 1 + col * 3;         
+                int py     = 1 + fila * 2;         
+                int puntos = (filas - fila) * 10;  
                 enemigos.add(new Enemigo(px, py, puntos));
             }
         }
@@ -136,12 +136,12 @@ public class Juego {
         }
 
         if (tocoBorde) {
-            // Bajar todos y cambiar dirección
+           
             for (Enemigo en : enemigos)
                 if (en.isActivo()) en.setY(en.getY() + 1);
             direccionEnemigos *= -1;
         } else {
-            // Moverse horizontalmente
+           
             for (Enemigo en : enemigos)
                 if (en.isActivo()) en.setX(en.getX() + direccionEnemigos);
         }
@@ -190,7 +190,7 @@ public class Juego {
 
    
     void verificarColisiones() {
-        // 1. Disparos del jugador impactan enemigos
+       
         for (Disparo d : disparosJugador) {
             if (!d.isActivo()) continue;
             for (Enemigo en : enemigos) {
@@ -202,7 +202,7 @@ public class Juego {
             }
         }
 
-        // 2. Disparos de enemigos impactan la nave
+       
         for (Disparo d : disparosEnemigos) {
             if (!d.isActivo()) continue;
             if (d.getX() == nave.getX() && d.getY() == ALTO - 1) {
@@ -212,7 +212,7 @@ public class Juego {
             }
         }
 
-        // 3. Un enemigo llegó al fondo → derrota inmediata
+       
         for (Enemigo en : enemigos) {
             if (en.isActivo() && en.getY() >= ALTO - 1) {
                 nave.setVidas(0);
@@ -221,7 +221,7 @@ public class Juego {
         }
     }
 
-    /** Devuelve true si todos los enemigos fueron eliminados (nivel completado). */
+   
     boolean todosEliminados() {
         for (Enemigo en : enemigos)
             if (en.isActivo()) return false;
@@ -230,18 +230,18 @@ public class Juego {
 
    
     void jugar() {
-        // ── Demostración de polimorfismo requerida por la rúbrica ────────
+       
         System.out.println("\n── DEMOSTRACIÓN DE POLIMORFISMO ──");
         ArrayList<Personaje> personajes = new ArrayList<>();
-        personajes.add(nave);                    // Tipo padre = Personaje
-        personajes.add(new Enemigo(0, 0, 10));   // Tipo padre = Personaje
-        personajes.add(new Enemigo(5, 2, 20));   // Tipo padre = Personaje
+        personajes.add(nave);                    
+        personajes.add(new Enemigo(0, 0, 10));   
+        personajes.add(new Enemigo(5, 2, 20));   
 
-        for (Personaje p : personajes) {         // For-each sobre tipo padre
+        for (Personaje p : personajes) {         /
             Disparo d = p.atacar();
             if (d != null)
                 System.out.println(p.getClass().getSimpleName()
-                        + " ataca → " + d);      // Cada clase responde diferente
+                        + " ataca → " + d);     
         }
         System.out.println("──────────────────────────────────\n");
         System.out.println("Presiona Enter para comenzar...");
@@ -253,29 +253,29 @@ public class Juego {
             dibujarTablero();
             String entrada = sc.nextLine().trim().toLowerCase();
 
-            // Procesar comando del jugador
+           
             switch (entrada) {
                 case "q": corriendo = false; break;
                 case "a": nave.moverIzquierda(); break;
                 case "d": nave.moverDerecha();   break;
                 case "w":
-                    // Polimorfismo: atacar() de la Nave devuelve disparo hacia arriba
+                   
                     disparosJugador.add(nave.atacar());
                     break;
                 default:
-                    // Comando desconocido → no hace nada
+                   
                     break;
             }
 
             if (!corriendo) break;
 
-            // Lógica del turno
+            
             moverDisparos();
-            if (turno % 2 == 0) moverEnemigos();   // Enemigos se mueven cada 2 turnos
-            if (turno % 3 == 0) disparoEnemigo();   // Enemigos disparan cada 3 turnos
+            if (turno % 2 == 0) moverEnemigos();   
+            if (turno % 3 == 0) disparoEnemigo();   
             verificarColisiones();
 
-            // Verificar si se completó el nivel
+            
             if (todosEliminados()) {
                 nivel++;
                 System.out.println("\n¡Nivel " + (nivel - 1) + " completado! Avanzas al nivel " + nivel);
