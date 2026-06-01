@@ -12,7 +12,7 @@ public class Disparo {
         this.x         = x;
         this.y         = y;
         this.direccion = direccion;
-        this.activo    = true; // Nace activo
+        this.activo    = true;
     }
 
     
