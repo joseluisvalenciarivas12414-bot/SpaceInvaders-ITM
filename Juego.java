@@ -60,8 +60,9 @@ public class Juego {
     
     void dibujarTablero() {
         // Limpia la pantalla (ANSI escape)
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        for (int i = 0; i < 50; i++) {
+            System.out.println();
+        }
 
         
         System.out.println("=== SPACE INVADERS ===");
