@@ -1,15 +1,6 @@
 import java.util.Scanner;
 
-/**
- * CLASE PRINCIPAL — SpaceInvaders (Main)
- *
- * Punto de entrada del programa.
- * Solo pide el nombre del jugador y lanza el juego.
- *
- * Para compilar y ejecutar desde la carpeta src/:
- *   javac *.java
- *   java SpaceInvaders
- */
+
 public class SpaceInvaders {
 
     public static void main(String[] args) {
