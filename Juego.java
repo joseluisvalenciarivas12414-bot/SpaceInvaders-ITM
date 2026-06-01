@@ -1,32 +1,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * CLASE — Juego
- *
- * Controla toda la lógica del Space Invaders:
- *   - El tablero de juego
- *   - El movimiento de enemigos y disparos
- *   - La detección de colisiones
- *   - Los niveles y el puntaje
- *
- * Aquí se DEMUESTRA el polimorfismo: se usa un ArrayList<Personaje>
- * (tipo padre) que contiene tanto Nave como Enemigos, y se llama
- * atacar() en cada uno → cada objeto responde diferente.
- *
- * Conceptos POO aplicados:
- *   - Polimorfismo: ArrayList<Personaje> iterado con for-each
- *   - Composición: tiene una Nave, ArrayList de Enemigos y Disparos
- *   - Encapsulación: getters para puntaje, nivel y nave
- */
+
 public class Juego {
 
-    // ── Constantes del tablero ───────────────────────────────────────────
+    
     static final int ANCHO   = 20; // Columnas del tablero
     static final int ALTO    = 10; // Filas del tablero
     static final int MAX_COL = 5;  // Columnas de enemigos por fila
 
-    // ── Atributos del juego ──────────────────────────────────────────────
+    
     private Nave               nave;              // La nave del jugador
     private ArrayList<Enemigo> enemigos;          // Todos los enemigos activos
     private ArrayList<Disparo> disparosJugador;   // Balas del jugador (suben)
@@ -37,13 +20,8 @@ public class Juego {
     private int                direccionEnemigos; // +1 derecha, -1 izquierda
     private Scanner            sc;                // Lector de teclado
 
-    // ── Constructor ──────────────────────────────────────────────────────
-    /**
-     * Prepara el juego con el nombre del jugador.
-     * Crea la nave, las listas de enemigos y disparos, e invoca crearEnemigos().
-     *
-     * @param nombreJugador nombre de quien juega
-     */
+    
+    
     public Juego(String nombreJugador) {
         sc                = new Scanner(System.in);
         nave              = new Nave(nombreJugador, ANCHO);
@@ -57,18 +35,12 @@ public class Juego {
         crearEnemigos();
     }
 
-    // ── Getters ──────────────────────────────────────────────────────────
+    
     public int  getPuntaje() { return puntaje; }
     public int  getNivel()   { return nivel; }
     public Nave getNave()    { return nave; }
 
-    // ── Métodos del juego ────────────────────────────────────────────────
-
-    /**
-     * Llena el tablero con 2 filas de 5 enemigos cada una.
-     * La fila superior vale más puntos que la inferior.
-     * Se reinvoca al completar un nivel.
-     */
+   
     void crearEnemigos() {
         enemigos.clear();
         direccionEnemigos = 1;
@@ -85,22 +57,13 @@ public class Juego {
         }
     }
 
-    /**
-     * Dibuja el tablero en la consola usando una matriz de caracteres.
-     * Primero limpia la pantalla, luego coloca cada elemento en su celda.
-     *
-     * Símbolos:
-     *   'A' = nave del jugador
-     *   'W' = enemigo
-     *   '|' = disparo del jugador (sube)
-     *   '!' = disparo enemigo    (baja)
-     */
+    
     void dibujarTablero() {
         // Limpia la pantalla (ANSI escape)
         System.out.print("\033[H\033[2J");
         System.out.flush();
 
-        // Cabecera de estado
+        
         System.out.println("=== SPACE INVADERS ===");
         System.out.println("Jugador: " + nave.getNombreJugador()
                 + "  |  Puntaje: " + puntaje
@@ -108,39 +71,39 @@ public class Juego {
                 + "  |  Vidas: "   + nave.getVidas());
         System.out.println();
 
-        // Crear matriz vacía
+        
         char[][] tablero = new char[ALTO][ANCHO];
         for (int f = 0; f < ALTO; f++)
             for (int c = 0; c < ANCHO; c++)
                 tablero[f][c] = ' ';
 
-        // Colocar enemigos en la matriz
+      
         for (Enemigo en : enemigos) {
             int ex = en.getX(), ey = en.getY();
             if (en.isActivo() && dentroDelTablero(ex, ey))
                 tablero[ey][ex] = 'W';
         }
 
-        // Colocar disparos del jugador '|'
+       
         for (Disparo d : disparosJugador) {
             int dx = d.getX(), dy = d.getY();
             if (d.isActivo() && dentroDelTablero(dx, dy))
                 tablero[dy][dx] = '|';
         }
 
-        // Colocar disparos de enemigos '!'
+        
         for (Disparo d : disparosEnemigos) {
             int dx = d.getX(), dy = d.getY();
             if (d.isActivo() && dentroDelTablero(dx, dy))
                 tablero[dy][dx] = '!';
         }
 
-        // Colocar la nave 'A'
+       
         int nx = nave.getX();
         if (nx >= 0 && nx < ANCHO)
             tablero[ALTO - 1][nx] = 'A';
 
-        // Imprimir el tablero con bordes
+       
         System.out.println("+" + "-".repeat(ANCHO) + "+");
         for (int f = 0; f < ALTO; f++) {
             System.out.print("|");
@@ -155,19 +118,16 @@ public class Juego {
         System.out.print("Tu movimiento: ");
     }
 
-    /** Verifica que una coordenada esté dentro del tablero. */
+   
     private boolean dentroDelTablero(int x, int y) {
         return x >= 0 && x < ANCHO && y >= 0 && y < ALTO;
     }
 
-    /**
-     * Mueve todos los enemigos en bloque hacia la derecha o izquierda.
-     * Cuando alguno toca un borde, el bloque baja una fila y cambia dirección.
-     */
+   
     void moverEnemigos() {
         boolean tocoBorde = false;
 
-        // Verificar si algún enemigo activo llegó al borde
+       
         for (Enemigo en : enemigos) {
             if (en.isActivo()) {
                 if (direccionEnemigos ==  1 && en.getX() >= ANCHO - 2) { tocoBorde = true; break; }
@@ -187,11 +147,7 @@ public class Juego {
         }
     }
 
-    /**
-     * Un enemigo aleatorio dispara hacia abajo.
-     * USO DE POLIMORFISMO: se llama atacar() sobre un objeto Enemigo
-     * (que hereda de Personaje), y retorna un Disparo hacia abajo.
-     */
+    
     void disparoEnemigo() {
         ArrayList<Enemigo> activos = new ArrayList<>();
         for (Enemigo en : enemigos)
@@ -204,13 +160,9 @@ public class Juego {
         }
     }
 
-    /**
-     * Mueve todos los disparos activos y elimina los que salen del tablero.
-     * Disparos del jugador salen por arriba (y < 0).
-     * Disparos enemigos salen por abajo (y >= ALTO).
-     */
+    
     void moverDisparos() {
-        // ── Disparos del jugador ────────────────────────────────────────
+        
         for (Disparo d : disparosJugador) {
             if (d.isActivo()) {
                 d.mover();
@@ -223,7 +175,7 @@ public class Juego {
             if (d.isActivo()) nuevosJ.add(d);
         disparosJugador = nuevosJ;
 
-        // ── Disparos enemigos ───────────────────────────────────────────
+       
         for (Disparo d : disparosEnemigos) {
             if (d.isActivo()) {
                 d.mover();
@@ -236,12 +188,7 @@ public class Juego {
         disparosEnemigos = nuevosE;
     }
 
-    /**
-     * Detecta todas las colisiones posibles:
-     *   1. Disparo del jugador vs enemigo  → enemigo muere, suma puntos
-     *   2. Disparo enemigo vs nave         → nave pierde una vida
-     *   3. Enemigo llega a la fila del jugador → Game Over inmediato
-     */
+   
     void verificarColisiones() {
         // 1. Disparos del jugador impactan enemigos
         for (Disparo d : disparosJugador) {
@@ -281,16 +228,7 @@ public class Juego {
         return true;
     }
 
-    /**
-     * Bucle principal del juego.
-     *
-     * DEMOSTRACIÓN EXPLÍCITA DE POLIMORFISMO:
-     * Se crea un ArrayList<Personaje> con la nave y los enemigos.
-     * Al iterar con for-each y llamar atacar(), cada objeto responde
-     * con su propia versión del método (Nave dispara arriba, Enemigo abajo).
-     *
-     * Este es el patrón que el profesor espera ver.
-     */
+   
     void jugar() {
         // ── Demostración de polimorfismo requerida por la rúbrica ────────
         System.out.println("\n── DEMOSTRACIÓN DE POLIMORFISMO ──");
@@ -308,8 +246,7 @@ public class Juego {
         System.out.println("──────────────────────────────────\n");
         System.out.println("Presiona Enter para comenzar...");
         sc.nextLine();
-        // ────────────────────────────────────────────────────────────────
-
+        
         int turno = 0;
 
         while (corriendo) {
@@ -350,7 +287,7 @@ public class Juego {
             turno++;
         }
 
-        // ── Pantalla final ───────────────────────────────────────────────
+        
         System.out.println("\n=========================");
         if (nave.getVidas() <= 0)
             System.out.println("   GAME OVER, " + nave.getNombreJugador() + "!");
