@@ -31,7 +31,7 @@ public class Juego {
         puntaje           = 0;
         nivel             = 1;
         corriendo         = true;
-        direccionEnemigos = 1; // Empiezan moviéndose a la derecha
+        direccionEnemigos = 1;
         crearEnemigos();
     }
 
@@ -166,7 +166,7 @@ public class Juego {
 
         if (!activos.isEmpty()) {
             int idx = (int)(Math.random() * activos.size());
-            Disparo bala = activos.get(idx).atacar(); // Polimorfismo en acción
+            Disparo bala = activos.get(idx).atacar(); 
             disparosEnemigos.add(bala);
         }
     }
@@ -177,7 +177,7 @@ public class Juego {
         for (Disparo d : disparosJugador) {
             if (d.isActivo()) {
                 d.mover();
-                if (d.getY() < 0) d.setActivo(false); // Salió por arriba
+                if (d.getY() < 0) d.setActivo(false); 
             }
         }
         // Filtrar los inactivos
@@ -190,7 +190,7 @@ public class Juego {
         for (Disparo d : disparosEnemigos) {
             if (d.isActivo()) {
                 d.mover();
-                if (d.getY() >= ALTO) d.setActivo(false); // Salió por abajo
+                if (d.getY() >= ALTO) d.setActivo(false); 
             }
         }
         ArrayList<Disparo> nuevosE = new ArrayList<>();
