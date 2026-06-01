@@ -292,7 +292,7 @@ public class Juego {
         if (nave.getVidas() <= 0)
             System.out.println("   GAME OVER, " + nave.getNombreJugador() + "!");
         else
-            System.out.println("   ¡VICTORIA, "  + nave.getNombreJugador() + "!");
+            System.out.println("   ¡GRACIAS POR JUGAR, "  + nave.getNombreJugador() + "!");
         System.out.println("   Puntaje final : " + puntaje);
         System.out.println("   Nivel alcanzado: " + nivel);
         System.out.println("=========================");
