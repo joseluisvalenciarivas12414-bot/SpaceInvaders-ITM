@@ -17,7 +17,7 @@ public class SpaceInvaders {
 
         if (nombre.isEmpty()) nombre = "Jugador";
 
-        // Crear el juego y comenzar
+       
         Juego juego = new Juego(nombre);
         juego.jugar();
 
