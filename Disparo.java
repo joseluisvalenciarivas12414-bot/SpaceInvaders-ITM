@@ -2,10 +2,10 @@
 public class Disparo {
 
     
-    private int     x;          // Columna donde está el disparo
-    private int     y;          // Fila donde está el disparo
-    private int     direccion;  // -1 = sube (jugador), +1 = baja (enemigo)
-    private boolean activo;     // false = el disparo debe eliminarse
+    private int     x;          
+    private int     y;         
+    private int     direccion;  
+    private boolean activo;     
 
     
     public Disparo(int x, int y, int direccion) {
