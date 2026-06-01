@@ -1,4 +1,4 @@
- Space Invaders — ITM
+ Space Invaders 
 
 Proyecto Final de Lógica y Programación
 
