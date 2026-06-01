@@ -59,7 +59,7 @@ public class Juego {
 
     
     void dibujarTablero() {
-        // Limpia la pantalla (ANSI escape)
+        
         for (int i = 0; i < 50; i++) {
             System.out.println();
         }
