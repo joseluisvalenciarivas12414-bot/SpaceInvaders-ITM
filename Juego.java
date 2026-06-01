@@ -180,7 +180,7 @@ public class Juego {
                 if (d.getY() < 0) d.setActivo(false); 
             }
         }
-        // Filtrar los inactivos
+       
         ArrayList<Disparo> nuevosJ = new ArrayList<>();
         for (Disparo d : disparosJugador)
             if (d.isActivo()) nuevosJ.add(d);
