@@ -12,7 +12,7 @@ public class Personaje {
         this.x      = x;
         this.y      = y;
         this.vidas  = vidas;
-        this.activo = true;   // Nace activo
+        this.activo = true;   
     }
 
    
@@ -29,7 +29,7 @@ public class Personaje {
 
   
     public Disparo atacar() {
-        return null; // La clase base no dispara por sí sola
+        return null; 
     }
 
     
