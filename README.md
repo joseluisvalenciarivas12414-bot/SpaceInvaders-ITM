@@ -11,7 +11,7 @@ Videojuego Space Invaders desarrollado en Java que corre en la consola.
 Aplica los conceptos de POO: clases, herencia, encapsulación y polimorfismo.
 
  ¿Cómo ejecutarlo?
-1. Compilar:javac .java
+1. Compilar:javac*.java
 2. Ejecutar: java SpaceInvaders
 
 Contenido del repositorio
