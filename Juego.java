@@ -237,7 +237,7 @@ public class Juego {
         personajes.add(new Enemigo(0, 0, 10));   
         personajes.add(new Enemigo(5, 2, 20));   
 
-        for (Personaje p : personajes) {         /
+        for (Personaje p : personajes) {         
             Disparo d = p.atacar();
             if (d != null)
                 System.out.println(p.getClass().getSimpleName()
