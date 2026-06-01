@@ -35,7 +35,7 @@ public class Nave extends Personaje {
    
     @Override
     public Disparo atacar() {
-        return new Disparo(getX(), getY() - 1, -1); // -1 = sube
+        return new Disparo(getX(), getY() - 1, -1); 
     }
 
     
