@@ -7,7 +7,7 @@ public class Nave extends Personaje {
 
    
     public Nave(String nombreJugador, int ancho) {
-        super(ancho / 2, Juego.ALTO - 1, 3); // posición x central, fila inferior, 3 vidas
+        super(ancho / 2, Juego.ALTO - 1, 3); 
         this.nombreJugador = nombreJugador;
         this.ancho         = ancho;
     }
@@ -18,14 +18,14 @@ public class Nave extends Personaje {
 
     
 
-    /** Mueve la nave un paso a la izquierda (sin salirse del tablero). */
+  
     public void moverIzquierda() {
         if (getX() > 0) {
             setX(getX() - 1);
         }
     }
 
-    /** Mueve la nave un paso a la derecha (sin salirse del tablero). */
+   
     public void moverDerecha() {
         if (getX() < ancho - 1) {
             setX(getX() + 1);
