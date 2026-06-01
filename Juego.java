@@ -105,14 +105,24 @@ public class Juego {
             tablero[ALTO - 1][nx] = 'A';
 
        
-        System.out.println("+" + "-".repeat(ANCHO) + "+");
+        System.out.print("+");
+        for (int i = 0; i < ANCHO; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+");
+        
         for (int f = 0; f < ALTO; f++) {
             System.out.print("|");
             for (int c = 0; c < ANCHO; c++)
                 System.out.print(tablero[f][c]);
             System.out.println("|");
         }
-        System.out.println("+" + "-".repeat(ANCHO) + "+");
+
+        System.out.print("+");
+        for (int i = 0; i < ANCHO; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+");
 
         System.out.println();
         System.out.println("Comandos:  a = izquierda   d = derecha   w = disparar   q = salir");
